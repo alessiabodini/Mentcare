@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Nurse's Homepage</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/staff-home.css"/>
+</head>
+
+<body>
+    <h4>Welcome, <em th:text="${nurse.id}"></em>!</h4> <br/><br/>
+    <div>
+        <h2>Select your patient:</h2>
+        <form th:action="@{/view-record(staff=${nurse.id})}" method="post">
+            <select name="patient">
+                <option th:each="patient : ${patients}"
+                        th:value="${patient.id}"
+                        th:text="${patient.firstName + ' ' + patient.lastName}">
+            </select> <br/><br/>
+            <input type="submit" value="View medical record" name="view-record">
+        </form>
+        <a href="/">Exit</a>
+    </div>
+</body>
+</html>

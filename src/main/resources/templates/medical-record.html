@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Patient's Medical Record</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/medical-record.css"/>
+</head>
+
+<body>
+<div>
+    <h2>Medical record: <em th:text="${patient.id}"></em></h2>
+    <div class="container">
+        <table>
+            <tr>
+                <td class="label">ID: </td>
+                <td th:text="${patient.id}"></td>
+            </tr>
+            <tr>
+                <td class="label">First name: </td>
+                <td th:text="${patient.firstName}"></td>
+            </tr>
+            <tr>
+                <td class="label">Last name: </td>
+                <td th:text="${patient.lastName}"></td>
+            </tr>
+            <tr>
+                <td class="label">Date of birth: </td>
+                <td th:text="${patient.birthDate}"></td>
+            </tr>
+            <tr>
+                <td class="label">Phone number: </td>
+                <td th:text="${patient.phoneNumber}"></td>
+            </tr>
+            <tr>
+                <td class="label">Address: </td>
+                <td th:text="${patient.address}"></td>
+            </tr>
+            <tr>
+                <td class="label">General practitioner: </td>
+                <td th:text="${patient.getGeneralPractitioner().toString()}"></td>
+            </tr>
+            <tr>
+                <td class="label">Conditions: </td>
+                <td th:if="${patient.conditions == null || patient.conditions.empty}">None <br/></td>
+                <td>
+                    <div th:if="${patient.conditions != null}" th:each="condition: ${patient.conditions}">
+                        <span th:text="${condition.getName()}"></span> <br/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Symptoms: </td>
+                <td th:if="${patient.conditions == null || patient.conditions.empty}">None <br/></td>
+                <td>
+                    <div th:if="${patient.conditions != null}" th:each="condition: ${patient.conditions}">
+                        <span th:text="${condition.printSymptoms()}"></span> <br/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Allergies: </td>
+                <td th:text="${(patient.allergies.empty) ? 'None' : patient.printAllergies()}"></td>
+            </tr>
+            <tr>
+                <td class="label">Medications: </td>
+                <td th:if="${patient.medications == null || patient.medications.empty}">None <br/></td>
+                <td>
+                    <div th:if="${patient.medications != null}" th:each="medication: ${patient.medications}">
+                        <span th:text="${medication.toString()}" class="medications"></span>
+                        <a class="small" th:id="${'edit-med-' + medication.name}"
+                           th:if="${staff.id.startsWith('DOC')}"
+                           th:href="@{/edit-medication(patient=${patient.id}, staff=${staff.id}, medication=${medication.id})}">
+                            Change
+                        </a> <br/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Treatments: </td>
+                <td th:if="${patient.treatments == null || patient.treatments.empty}">None <br/></td>
+                <td>
+                    <div th:if="${patient.treatments != null}" th:each="treatment: ${patient.treatments}">
+                        <span th:text="${treatment.toString()}" class="treatment"></span>
+                        <a class="small"
+                           th:id="${'edit-treat-' + treatment.description + '-' + treatment.frequency}"
+                           th:if="${staff.id.startsWith('DOC')}"
+                           th:href="@{/edit-treatment(patient=${patient.id}, staff=${staff.id}, treatment=${treatment.id})}">
+                            Change
+                        </a>
+                        <br/>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <form th:action = "@{/edit-record(patient=${patient.id}, staff=${staff.id})}" method="post">
+        <input type="submit" value="Edit medical record"> <br/>
+    </form>
+    <a id="new-med" th:if="${staff.id.startsWith('DOC')}"
+       th:href="@{/prescribe-medication(patient=${patient.id}, staff=${staff.id})}">
+        Prescribe new medication
+    </a>
+    <a id="new-treat" th:if="${staff.id.startsWith('DOC')}"
+       th:href="@{/prescribe-treatment(patient=${patient.id}, staff=${staff.id})}">
+        Prescribe new treatment
+        <br/>
+    </a>
+    <a id="home" th:href="@{(${staff.id.startsWith('DOC')} ? '/doctor-home' : '/nurse-home')(staff=${staff.id})}">
+        Home
+    </a>
+</div>
+</body>
+</html>

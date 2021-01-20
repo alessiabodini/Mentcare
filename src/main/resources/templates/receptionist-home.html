@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Receptionist's Homepage</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/staff-home.css"/>
+</head>
+
+<body>
+    <h4>Welcome, <em th:text="${receptionist.id}"></em>!</h4> <br/><br/>
+    <div>
+        <h2>Select your patient:</h2>
+        <form th:action="@{/view-personal-info(receptionist=${receptionist.id})}" method="post">
+            <select name="patient">
+                <option th:each="patient : ${patients}"
+                        th:value="${patient.id}"
+                        th:text="${patient.firstName + ' ' + patient.lastName}">
+            </select> <br/><br/>
+            <input type="submit" value="View personal info" name="view-info">
+            <!--
+            <input type="submit" value="Book a consultation" name="book-consul"
+                th:formaction="@{/book-consultation(receptionist=${receptionist.id})}">
+            <a th:href="@{/book-consultation(receptionist=${receptionist.id}, patient=${patient})}">
+                Book a consultation
+            </a>
+            -->
+        </form>
+        <a th:href="@{/register-patient(receptionist=${receptionist.id})}">
+            Register a new patient
+        </a> <br/>
+        <a href="/">Exit</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register patient</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/edit.css"/>
+</head>
+
+<body>
+<div>
+    <h2>Register a new patient:</h2>
+    <script th:if="${error}">
+        alert("One of the fields is empty or not in the correct format. \nCheck that a patient with this info isn't already present.");
+    </script>
+    <form th:action="@{/updated-info(type='new', receptionist=${receptionist.id}, patient=${patient?.id})}"
+          method="post">
+        <div class="container">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="label" th:if="${patient != null}">ID: </td>
+                        <td th:if="${patient != null}">
+                            <input type="text" readonly name="id" th:value="${patient?.id}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">First name: </td>
+                        <td><input type="text" name="firstName" th:value="${patient?.firstName}"></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Last name: </td>
+                        <td><input type="text" name="lastName" th:value="${patient?.lastName}"></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Date of birth: </td>
+                        <td><input type="text" name="birthDate" th:value="${patient?.birthDate}">
+                            (yyyy-mm-dd)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">Phone number: </td>
+                        <td><input type="text" name="phoneNumber" th:value="${patient?.phoneNumber}"></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Address: </td>
+                        <td><textarea name="address" th:text="${patient?.address}"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="label">General practitioner: </td>
+                        <td>
+                            <select name="doctor">
+                                <option th:selected="${patient?.generalPractitioner?.id}"
+                                        th:each="doctor : ${doctors}"
+                                        th:if="${doctor.getClass().getSimpleName().equals('GeneralPractitioner')}"
+                                        th:value="${doctor.id}"
+                                        th:text="${doctor.firstName + ' ' + doctor.lastName}">
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div> <br/>
+
+        <input type="button" value="Back" onclick="history.back()">
+        <input type="submit" value="Save and continue" name="save"><br/>
+        <a id="home" th:href="@{'/receptionist-home'(staff=${receptionist.id})}">
+            Home
+        </a>
+    </form>
+</div>
+</body>
+</html>

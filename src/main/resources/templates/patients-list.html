@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Patients list</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/list.css"/>
+</head>
+
+<body>
+<h2>Patients list</h2>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>First name</td>
+            <td>Last name</td>
+            <td>Date of birth</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="person: ${patients}">
+            <td th:text="${person.id}" class="id"></td>
+            <td th:text="${person.firstName}" class="firstName"></td>
+            <td th:text="${person.lastName}" class="lastName"></td>
+            <td th:text="${person.birthDate}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

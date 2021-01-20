@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Patient's personal information</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/medical-record.css"/>
+</head>
+
+<body>
+<div style="max-width: 70%;">
+    <h2>Personal information for <em th:text="${patient.id}"></em>:</h2>
+    <div class="container">
+        <table>
+            <tr>
+                <td class="label">ID: </td>
+                <td th:text="${patient.id}"></td>
+            </tr>
+            <tr>
+                <td class="label">First name: </td>
+                <td th:text="${patient.firstName}"></td>
+            </tr>
+            <tr>
+                <td class="label">Last name: </td>
+                <td th:text="${patient.lastName}"></td>
+            </tr>
+            <tr>
+                <td class="label">Date of birth: </td>
+                <td th:text="${patient.birthDate}"></td>
+            </tr>
+            <tr>
+                <td class="label">Phone number: </td>
+                <td th:text="${patient.phoneNumber}"></td>
+            </tr>
+            <tr>
+                <td class="label">Address: </td>
+                <td th:text="${patient.address}"></td>
+            </tr>
+            <tr>
+                <td class="label">General practitioner: </td>
+                <td th:text="${patient.getGeneralPractitioner().toString()}"></td>
+            </tr>
+            <tr>
+                <td class="label">Consultations: </td>
+                <td th:if="${patient.consultations == null || patient.consultations.empty}">None <br/></td>
+                <td>
+                    <div th:if="${patient.consultations != null}"
+                         th:each="consultation: ${patient.consultations}">
+                        <span th:text="${consultation.toString()}"></span>
+                        <a class="small" th:id="${'delete-' + consultation.date.toString()}"
+                           th:href="@{/delete-consultation(patient=${patient.id}, receptionist=${receptionist.id},
+                                    consultation=${consultation.id})}">
+                            Delete
+                        </a> <br/>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <form th:action = "@{/edit-personal-info(patient=${patient.id}, receptionist=${receptionist.id})}"
+          method="post">
+        <input type="submit" value="Edit">
+        <a th:href="@{/book-consultation(receptionist=${receptionist.id}, patient=${patient.id})}">
+            Book a consultation
+        </a>
+    </form>
+    <a id="home" th:href="@{'/receptionist-home'(staff=${receptionist.id})}">
+        Home
+    </a>
+</div>
+</body>
+</html>

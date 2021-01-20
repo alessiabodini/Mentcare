@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Medical Record</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/edit.css"/>
+</head>
+
+<body>
+<div>
+    <h2>Edit medical record for <em th:text="${patient.id}"></em>:</h2>
+    <form th:action="@{/updated-record(patient=${patient.id}, staff=${staff.id})}" method="post">
+        <div class="container">
+            <table>
+                <tr>
+                    <td class="label">ID: </td>
+                    <td><input type="text" readonly th:value="${patient.id}"></td>
+                </tr>
+                <tr>
+                    <td class="label">First name: </td>
+                    <td><input type="text" readonly th:value="${patient.firstName}"></td>
+                </tr>
+                <tr>
+                    <td class="label">Last name: </td>
+                    <td><input type="text" readonly th:value="${patient.lastName}"></td>
+                </tr>
+                <tr>
+                    <td class="label">Date of birth: </td>
+                    <td><input type="text" readonly th:value="${patient.birthDate}"></td>
+                </tr>
+                <tr>
+                    <td class="label">Allergies: </td>
+                    <td><input type="text" name="allergies" th:value="${patient.printAllergies()}">
+                        (separated by "," without spaces)</td>
+                </tr>
+                <tr>
+                    <td class="label">Conditions: </td>
+                    <td>
+                        <div class="pad" th:each="disorder : ${disorders}">
+                            <input type="checkbox" name="conditions"
+                                   th:value="${disorder}"
+                                   th:text="${disorder}"
+                                   th:checked="${currentConditions.contains(disorder)}">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div> <br/>
+
+        <input type="button" value="Back" onclick="history.back()">
+        <input type="submit" value="Save and continue" name="save"><br/>
+        <a id="home" th:href="@{(${staff.id.startsWith('DOC')} ? '/doctor-home' : '/nurse-home')(staff=${staff.id})}">
+            Home
+        </a>
+    </form>
+</div>
+</body>
+</html>

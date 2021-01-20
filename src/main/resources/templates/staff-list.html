@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Staff list</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/list.css"/>
+</head>
+
+<body>
+    <h2>Staff list</h2>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Profession</td>
+                    <td>First name</td>
+                    <td>Last name</td>
+                    <td>Date of birth</td>
+                </tr>
+            </thead>
+            <tbody>
+            <tr th:each="person: ${staff}">
+                <td th:text="${person.id}" class="id"></td>
+                <td th:text="${person.getClass().getSimpleName()}"></td>
+                <td th:text="${person.firstName}"></td>
+                <td th:text="${person.lastName}"></td>
+                <td th:text="${person.birthDate}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <br/>
+    </div>
+</body>
+</html>

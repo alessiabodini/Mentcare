@@ -1,0 +1,51 @@
+html {
+    overflow-y: scroll;
+    min-height: 100%;
+}
+
+body {
+    background-color: lavender;
+    font-family: Arial, Helvetica, sans-serif;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+a {
+    border: 1px solid rgb(143, 120, 190);
+    border-radius: 5px;
+    background-color: rgb(143, 120, 190);
+    color: white;
+    padding: 8px;
+    margin: 2px 2px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    font-size: 14px;
+}
+
+table {
+    max-width: 100%;
+}
+
+thead {
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+tr {
+    border-bottom: 2px solid;
+    padding: 5px;
+    font-size: 14px;
+    text-align: left;
+    height: 0;
+}
+
+th, td {
+    border-bottom: 2px solid;
+    border-left: 1px solid;
+    padding: 5px;
+}

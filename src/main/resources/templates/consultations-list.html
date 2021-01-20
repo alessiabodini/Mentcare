@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Consultations list</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/list.css"/>
+</head>
+
+<body>
+<h2>Consultations list</h2>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Hospital doctor</td>
+                <td>Patient</td>
+                <td>Date</td>
+                <td>Clinic</td>
+                <td>Reason</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="consult: ${consultations}">
+                <td th:text="${consult.id}"></td>
+                <td th:text="${consult.doctor.getFirstName() + ' ' + consult.doctor.getLastName()}"></td>
+                <td th:text="${consult.patient.getFirstName() + ' ' + consult.patient.getLastName()}"></td>
+                <td th:text="${consult.date.toString()}"></td>
+                <td th:text="${consult.clinic}"></td>
+                <td th:text="${consult.reason"></td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+</div>
+</body>
+</html>

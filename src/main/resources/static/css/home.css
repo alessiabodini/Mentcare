@@ -1,0 +1,41 @@
+html {
+    overflow-y: scroll;
+    min-height: 100%;
+}
+
+body {
+    background-color: lavender;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    font-family: "Brush Script MT", cursive;
+    font-style: oblique;
+    font-size: 70px;
+    text-align: center;
+    color: white;
+    text-shadow:  1px 2px rgb(100, 50, 112), 0 0 25px plum, 0 0 5px mediumpurple;
+    padding-top: 60px;
+}
+
+div {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+a {
+    border: 1px solid rgb(143, 120, 190);
+    border-radius: 5px;
+    background-color: rgb(143, 120, 190);
+    color: white;
+    padding: 8px;
+    margin: 2px 2px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    font-size: 14px;
+}

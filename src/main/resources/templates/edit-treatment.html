@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit treatment</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/edit.css"/>
+</head>
+
+<body>
+<div class="centered">
+    <h2>Edit treatment for <em th:text="${patient.id}"></em>:</h2>
+    <script th:if="${error}">
+        alert("This treatment is already prescribed!");
+    </script>
+    <form th:action="@{/updated-treatment(type='change', patient=${patient.id}, staff=${staff.id},
+                    id=${treatment.id})}" method="post">
+        <div class="container">
+            <table>
+                <tr>
+                    <td class="label">Description: </td>
+                    <td>
+                        <textarea name="description"
+                                  th:text="${treatment.description}">
+                        </textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Frequency: </td>
+                    <td>
+                        <select name="frequency">
+                            <option th:selected="${treatment.frequency.equals('Daily')}">
+                                Daily
+                            </option>
+                            <option th:selected="${treatment.frequency.equals('Weekly')}">
+                                Weekly
+                            </option>
+                            <option th:selected="${treatment.frequency.equals('Monthly')}">
+                                Monthly
+                            </option>
+                            <option th:selected="${treatment.frequency.equals('Annually')}">
+                                Annually
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div> <br/>
+
+        <input type="button" value="Back" onclick="history.back()">
+        <a th:href="@{/updated-treatment(type='delete', patient=${patient.id},
+                staff=${staff.id}, id=${treatment.id})}">
+            Delete
+        </a>
+        <input type="submit" value="Save" name="save"> <br/>
+        <a id="home" th:href="@{'/doctor-home'(staff=${staff.id})}">
+            Home
+        </a>
+    </form>
+</div>
+</body>
+</html>

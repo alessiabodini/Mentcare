@@ -1,0 +1,39 @@
+html {
+    overflow-y: scroll;
+    min-height: 100%;
+}
+
+body {
+    background-color: lavender;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+div {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+input[type=text] {
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 2px;
+    margin: auto;
+    box-sizing: border-box;
+    text-decoration: none;
+    resize: none;
+}
+
+input[type=submit] {
+    background-color: rgb(143, 120, 190);
+    border: 1px solid;
+    border-radius: 5px;
+    color: white;
+    padding: 8px;
+    margin: 2px 2px;
+    cursor: pointer;
+    font-size: 14px;
+    display: inline-block;
+}

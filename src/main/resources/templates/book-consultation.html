@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Book consultation</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/edit.css"/>
+</head>
+
+<body>
+<div>
+    <h2>Book consultation for <span th:text="${patient.firstName + ' ' + patient.lastName}"></span> 
+        (<em th:text="${patient.id}"></em>):</h2>
+    <script th:if="${error}">
+        alert("One of the fields is empty or not in the correct format. \nCheck that this consultation isn't already present.");
+    </script>
+    <form th:action="@{/updated-consultation(receptionist=${receptionist.id}, patient=${patient.id})}"
+          method="post">
+        <div class="container">
+            <table>
+                <tr>
+                    <td class="label">Hospital doctor: </td>
+                    <td>
+                        <select name="doctor">
+                            <option th:each="doctor : ${hospitalDoctors}"
+                                    th:if="${doctor.getClass().getSimpleName().equals('HospitalDoctor')}"
+                                    th:value="${doctor.id}"
+                                    th:text="${doctor.firstName + ' ' + doctor.lastName}"
+                                    th:selected="${consultation?.doctor?.id}"
+                            >
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Date: </td>
+                    <td>
+                        <input type="text" name="date" th:value="${consultation?.date}">
+                        (yyyy-mm-dd hh:mm)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Clinic: </td>
+                    <td>
+                        <select name="clinic">
+                            <option th:each="clinic : ${clinics}"
+                                    th:value="${clinic}"
+                                    th:text="${clinic}"
+                                    th:selected="${consultation?.clinic}"
+                            >
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Reason: </td>
+                    <td>
+                        <textarea name="reason" th:text="${consultation?.reason}"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </div> <br/>
+
+        <input type="button" value="Back" onclick="history.back()">
+        <input type="submit" value="Save" name="save"><br/>
+        <a id="home" th:href="@{'/receptionist-home'(staff=${receptionist.id})}">
+            Home
+        </a>
+    </form>
+</div>
+</body>
+</html>

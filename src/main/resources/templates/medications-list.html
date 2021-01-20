@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Medications list</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/list.css"/>
+</head>
+
+<body>
+<h2>Medications list</h2>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Dose</td>
+            <td>Unit</td>
+            <td>Allergies</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="med: ${medications}">
+            <td th:text="${med.id}" class="id"></td>
+            <td th:text="${med.name}" class="name"></td>
+            <td th:text="${med.dose}" class="dose"></td>
+            <td th:text="${med.unit}" class="unit"></td>
+            <td th:text="${(med.allergies.empty) ? 'None' : med.printAllergies()}" class="allergies"></td>
+        </tr>
+        </tbody>
+    </table>
+    <br/>
+</div>
+</body>
+</html>

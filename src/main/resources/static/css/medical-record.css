@@ -1,0 +1,87 @@
+html {
+    overflow-y: scroll;
+    min-height: 100%;
+}
+
+body {
+    background-color: lavender;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+div {
+    margin: 0 auto;
+    max-width: 65%;
+    text-align: center;
+}
+
+div.container {
+    border: 2px solid rgb(143, 120, 190);
+    border-radius: 5px;
+    background-color: rgb(232, 220, 255);
+    padding: 10px;
+    text-align: left;
+    display: inline-block;
+}
+
+a.small {
+    font-size: 12px;
+    border: none;
+    display: inline;
+    background-color: transparent;
+    color: purple;
+    text-decoration: underline
+}
+
+a {
+    border: 1px solid rgb(143, 120, 190);
+    border-radius: 5px;
+    background-color: rgb(143, 120, 190);
+    color: white;
+    padding: 8px;
+    margin: 2px 2px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    font-size: 14px;
+}
+
+input[type=button], input[type=submit] {
+    background-color: rgb(143, 120, 190);
+    border: 1px solid;
+    border-radius: 5px;
+    color: white;
+    padding: 8px;
+    margin: 2px 2px;
+    cursor: pointer;
+    font-size: 14px;
+    display: inline-block;
+}
+
+table {
+    max-width: 100%;
+}
+
+tr {
+    border: none;
+    padding: 5px;
+    font-size: 14px;
+    text-align: left;
+    height: 0;
+}
+
+td {
+    padding: 5px;
+}
+
+.label {
+    font-weight: bold;
+    width: 150px;
+}
+
+td div {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    text-align: left;
+}

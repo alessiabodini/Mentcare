@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Prescribe medication</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/edit.css"/>
+</head>
+
+<body>
+<div class="centered">
+    <h2>Prescribe medication for <em th:text="${patient.id}"></em>:</h2>
+    <script th:if="${error}">
+        alert("This medication is already prescribed or doesn't exists. \nCheck the dose and the unit specified.");
+    </script>
+    <script th:if="${allergies}">
+        alert("The patient is allergic to this medication! \n(Check the checkbox above to avoid this message)");
+    </script>
+    <form th:action="@{/updated-medication(type='new', patient=${patient.id}, staff=${staff.id})}" method="post">
+        <div class="container">
+            <table >
+                <tr>
+                    <td class="label">Name: </td>
+                    <td>
+                        <select name="name">
+                            <option th:each="name : ${medNames}"
+                                    th:value="${name}"
+                                    th:text="${name}"
+                                    th:selected="${medication?.name}">
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Dose: </td>
+                    <td><input type="text" name="dose" th:value="${medication?.dose}"></td>
+                </tr>
+                <tr>
+                    <td class="label">Unit: </td>
+                    <td>
+                        <select name="unit">
+                            <option th:selected="${medication?.unit?.equals('units')}">units</option>
+                            <option th:selected="${medication?.unit?.equals('mg')}">mg</option>
+                            <option th:selected="${medication?.unit?.equals('ml')}">ml</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label"> DON'T consider patient's allergies: </td>
+                    <td>
+                        <input type="checkbox" name="checkbox" th:value="allergy">
+                    </td>
+
+                </tr>
+            </table>
+        </div> <br/>
+
+        <input type="button" value="Back" onclick="history.back()">
+        <input type="submit" value="Save" name="save"> <br/>
+        <a id="home" th:href="@{'/doctor-home'(staff=${staff.id})}">
+            Home
+        </a>
+    </form>
+</div>
+</body>
+</html>

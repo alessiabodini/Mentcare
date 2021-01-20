@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit medication</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/edit.css"/>
+</head>
+
+<body>
+<div>
+    <h2>Edit medication for <em th:text="${patient.id}"></em>:</h2>
+    <script th:if="${error}">
+        alert("This medication is already prescribed or doesn't exists. \nCheck the dose and the unit specified.");
+    </script>
+    <form th:action="@{/updated-medication(type='change', patient=${patient.id}, staff=${staff.id},
+            id=${medication.id})}" method="post">
+        <div class="container">
+            <table >
+                <tr>
+                    <td class="label">Name: </td>
+                    <td><input type="text" readonly th:value="${medication.name}"></td>
+                </tr>
+                <tr>
+                    <td class="label">Dose: </td>
+                    <td><input type="text" name="dose" th:value="${medication.dose}"></td>
+                </tr>
+                <tr>
+                    <td class="label">Unit: </td>
+                    <td>
+                        <select name="unit">
+                            <option th:selected="${medication.unit.equals('units')}">units</option>
+                            <option th:selected="${medication.unit.equals('mg')}">mg</option>
+                            <option th:selected="${medication.unit.equals('ml')}">ml</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div> <br/>
+
+        <input type="button" value="Back" onclick="history.back()">
+        <!-- <input type="submit" value="Delete" name="delete"
+               th:formaction="@{/updated-medication(type='delete', patient=${patient.id},
+                staff=${staff.id}, id=${medication.id})}"> -->
+        <a th:href="@{/updated-medication(type='delete', patient=${patient.id},
+                staff=${staff.id}, id=${medication.id})}">
+            Delete
+        </a>
+        <input type="submit" value="Save" name="save"> <br/>
+        <a id="home" th:href="@{'/doctor-home'(staff=${staff.id})}">
+            Home
+        </a>
+    </form>
+</div>
+</body>
+</html>

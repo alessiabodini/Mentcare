@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Treatments list</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/list.css"/>
+</head>
+
+<body>
+<h2>Treatments list</h2>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Description</td>
+            <td>Frequency</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="treat: ${treatments}">
+            <td th:text="${treat.id}" class="id"></td>
+            <td th:text="${treat.description}" class="description"></td>
+            <td th:text="${treat.frequency}" class="frequency"></td></tr>
+        </tbody>
+    </table>
+    <br/>
+</div>
+</body>
+</html>
