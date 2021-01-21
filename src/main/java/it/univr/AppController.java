@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+@SuppressWarnings("ALL")
 @Controller
 public class AppController {
 
@@ -145,8 +146,19 @@ public class AppController {
     // Redirect to doctors homepage
     @RequestMapping("/doctor-home")
     public String doctorHome(Model model, @RequestParam(name="staff") String id) {
-        model.addAttribute("doctor", doctorRepository.findById(id).get());
-        model.addAttribute("patients", patientRepository.findAll());
+        Doctor doctor = (Doctor) doctorRepository.findById(id).get();
+        model.addAttribute("doctor", doctor);
+        List<Patient> patients = patientRepository.findAll();
+        if (doctor instanceof GeneralPractitioner) {
+            List<Patient> selectedPatients = new ArrayList<>();
+            for (Patient patient : patients) {
+                if (((GeneralPractitioner) doctor).getPatients().contains(patient))
+                    selectedPatients.add(patient);
+            }
+            model.addAttribute("patients", selectedPatients);
+        }
+        else
+            model.addAttribute("patients", patients);
         return "doctor-home";
     }
 
@@ -256,9 +268,6 @@ public class AppController {
                 conditions.get(i).setSymptoms(new ArrayList<>(
                         Arrays.asList(symptoms.get(i).split(","))));
             patient.setConditions(conditions);
-        }
-        else {
-            patient.setConditions(new ArrayList<>());
         }
         patientRepository.save(patient);
         model.addAttribute("patient", patient);

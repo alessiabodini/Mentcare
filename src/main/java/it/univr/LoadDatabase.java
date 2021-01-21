@@ -13,6 +13,7 @@ public class LoadDatabase {
     // - Nurses (2)
     // - Receptionists (2)
     // - Patients (2)
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     public static void importPeople(HospitalDoctorRepository hospitalDoctorRepository,
                                     GeneralPractitionerRepository generalPractitionerRepository,
                                     NurseRepository nurseRepository,
@@ -36,16 +37,19 @@ public class LoadDatabase {
                 "Neuropsychiatry", "43212", ids));
         ids.add("DOC10001");
 
-        generalPractitionerRepository.save(new GeneralPractitioner("Stefano", "Scorsese",
+        GeneralPractitioner generalPractitioner1 = new GeneralPractitioner("Stefano", "Scorsese",
                 LocalDate.parse("1976-02-02"), "3275791703",
                 "via Puccini 26, Roverbella", "stefano.scorsese@gmail.com",
-                "General", "Armonia", ids));
+                "General", "Armonia", ids);
         ids.add("DOC10002");
-        generalPractitionerRepository.save(new GeneralPractitioner("Gianni", "Mondadori",
+        generalPractitionerRepository.save(generalPractitioner1);
+        GeneralPractitioner generalPractitioner2 = new GeneralPractitioner("Gianni", "Mondadori",
                 LocalDate.parse("1965-11-02"), "3943791703",
                 "via Verdi 43, Isola della Scala", "gianni.mondadori@gmail.com",
-                "General", "Xperia", ids));
+                "General", "Xperia", ids);
         ids.add("DOC10003");
+        generalPractitionerRepository.save(generalPractitioner2);
+        // Continue after the addition of patients...
 
         // Nurses (2)
         nurseRepository.save(new Nurse("Miranda", "Dotti",
@@ -98,8 +102,7 @@ public class LoadDatabase {
 
         Patient patient1 = new Patient("Alessandro", "Cremonini",
                 LocalDate.parse("1961-03-05"), "3678965342",
-                "via Dalla Spina 77, Verona",
-                (GeneralPractitioner) generalPractitionerRepository.findByLastName("Scorsese").get(),
+                "via Dalla Spina 77, Verona", generalPractitioner1,
                 new ArrayList<>(Collections.singletonList(conditionRepository.findByName("Mood disorder").get())),
                 new ArrayList<>(Collections.singletonList("Benzodiazepines")), ids);
         ids.add("PAT10008");
@@ -113,13 +116,17 @@ public class LoadDatabase {
 
         Patient patient2 = new Patient("Ilaria", "Bonetti",
                 LocalDate.parse("1994-10-10"), "3677665342",
-                "via delle Rose 32, Verona",
-                (GeneralPractitioner) generalPractitionerRepository.findByLastName("Mondadori").get(),
+                "via delle Rose 32, Verona", generalPractitioner2,
                 new ArrayList<>(Collections.singletonList(conditionRepository.findByName("Eating disorder").get())),
                 new ArrayList<>(), ids);
         ids.add("PAT10009");
         patient2.setTreatments(new ArrayList<>(Collections.singletonList(
                 treatmentRepository.findByDescription("Weight check").get())));
         patientRepository.save(patient2);
+
+        generalPractitioner1.setPatients(Collections.singletonList(patient1));
+        generalPractitioner2.setPatients(Collections.singletonList(patient2));
+        generalPractitionerRepository.save(generalPractitioner1);
+        generalPractitionerRepository.save(generalPractitioner2);
     }
 }
