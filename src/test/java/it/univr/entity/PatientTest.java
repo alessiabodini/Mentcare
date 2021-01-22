@@ -10,7 +10,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class PatientTest {
     private Patient patient;
@@ -146,8 +147,20 @@ public class PatientTest {
         Patient patient2 = new Patient("Alessandro", "Cremonini",
                 LocalDate.parse("1961-03-05"), "3678965342",
                 "via Dalla Spina 77, Verona", new GeneralPractitioner(),
-                new ArrayList<>(), new ArrayList<>(), new ArrayList<>(Collections.singletonList("PAT10000")));
+                new ArrayList<>(), new ArrayList<>(), new ArrayList<>(Collections.singletonList("PAT12000")));
         assertEquals(patient, patient2);
+
+        patient2.setAddress("via Mosconi");
+        assertNotEquals(patient, patient2);
+        patient2.setPhoneNumber("325881535");
+        assertNotEquals(patient, patient2);
+        patient2.setBirthDate(LocalDate.parse("1988-02-03"));
+        assertNotEquals(patient, patient2);
+        patient2.setLastName("Crema");
+        assertNotEquals(patient, patient2);
+        patient2.setFirstName("Alessio");
+        assertNotEquals(patient, patient2);
+        assertNotEquals(new Condition(), patient);
     }
 
 }

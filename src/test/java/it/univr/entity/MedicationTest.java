@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class MedicationTest {
     private Medication medication;
@@ -66,5 +67,12 @@ public class MedicationTest {
         Medication med = new Medication("Xanax", 5.0,
                 "mg", new ArrayList<>(Collections.singletonList("Antibiotics")));
         assertEquals(medication, med);
+
+        med.setUnit("ml");
+        assertNotEquals(medication, med);
+        med.setDose(20.0);
+        assertNotEquals(medication, med);
+        med.setName("Prozac");
+        assertNotEquals(medication, med);
     }
 }

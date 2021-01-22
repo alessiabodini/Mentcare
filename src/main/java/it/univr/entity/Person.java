@@ -32,7 +32,7 @@ public abstract class Person {
     // checking that it doesn't already exists in PersonRepository
     protected String generateId(List<String> ids) {
         int num = 10000;
-        if (ids != null && !ids.isEmpty())
+        if (!ids.isEmpty())
             num = Integer.parseInt(ids.get(ids.size()-1).substring(3)) + 1;
         return String.valueOf(num);
     }

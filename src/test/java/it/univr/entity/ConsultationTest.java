@@ -7,8 +7,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class ConsultationTest {
     private Consultation consultation;
@@ -88,11 +90,28 @@ public class ConsultationTest {
         Patient patient = new Patient("Alessandro", "Cremonini",
                 LocalDate.parse("1961-03-05"), "3678965342",
                 "via Dalla Spina 77, Verona", new GeneralPractitioner(),
-                new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+                new ArrayList<>(), new ArrayList<>(), Arrays.asList("DOC10000"));
         consultation = new Consultation(doctor, patient, LocalDateTime.parse("2021-02-12T11:00:00"),
                 "Armonia", "Weekly meeting");
         Consultation consultation1 = new Consultation(doctor, patient, LocalDateTime.parse("2021-02-12T11:00:00"),
                 "Armonia", "Weekly meeting");
         assertEquals(consultation1, consultation);
+
+        consultation1.setClinic("Xperia");
+        assertNotEquals(consultation, consultation1);
+        consultation1.setDate(LocalDateTime.parse("2021-02-12T12:00:00"));
+        assertNotEquals(consultation, consultation1);
+        Patient patient1 = new Patient("Alessio", "Cremonini",
+                LocalDate.parse("1961-03-05"), "3678965342",
+                "via Dalla Spina 77, Verona", new GeneralPractitioner(),
+                new ArrayList<>(), new ArrayList<>(), Arrays.asList("DOC10000", "PAT10001", "DOC10002"));
+        consultation1.setPatient(patient1);
+        assertNotEquals(consultation, consultation1);
+        HospitalDoctor doctor1 = new HospitalDoctor("Benedetta", "Soli",
+                LocalDate.parse("1976-03-16"), "3275758903",
+                "via Gonzaga 4, Mantova", "beatrice.sole@gmail.com",
+                "Neuropsychiatry", "43212", Arrays.asList("DOC10000", "PAT10001"));
+        consultation1.setDoctor(doctor1);
+        assertNotEquals(consultation, consultation1);
     }
 }

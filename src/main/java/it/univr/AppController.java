@@ -48,7 +48,7 @@ public class AppController {
     public String home(){
         // When this page is opened for the first time it imports the initial database
         if (personRepository.findAll().isEmpty())
-            LoadDatabase.importPeople(hospitalDoctorRepository, generalPractitionerRepository,
+            new LoadDatabase(hospitalDoctorRepository, generalPractitionerRepository,
                     nurseRepository, receptionistRepository, patientRepository,
                     conditionRepository, medicationRepository, treatmentRepository);
         return "home";
@@ -324,7 +324,7 @@ public class AppController {
         model.addAttribute("staff", doctorRepository.findById(staffId).get());
 
         List<Medication> medications = medicationRepository.findAll();
-        Medication newMedication = new Medication();
+        Medication newMedication = null;
 
         // If it has to be deleted, the medication is removed from the patient
         // (but not from the database)
@@ -339,18 +339,10 @@ public class AppController {
             patient.removeMedication(medication);
             try {
                 Double doseValue = Double.parseDouble(dose);
-                newMedication.setName(medication.getName());
-                newMedication.setDose(doseValue);
-                newMedication.setUnit(unit);
-                boolean found = false;
-                for (Medication med: medications) {
-                    if (newMedication.equals(med) &&
-                            !patient.getMedications().contains(newMedication)) {
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found)
+                if (!medicationRepository.existsByNameAndDoseAndUnit(medication.getName(), doseValue, unit))
+                    throw new Exception();
+                newMedication = medicationRepository.findByNameAndDoseAndUnit(medication.getName(), doseValue, unit).get();
+                if (patient.getMedications().contains(newMedication))
                     throw new Exception();
             } catch (Exception e) {
                 patient.addMedication(medication);
@@ -366,26 +358,16 @@ public class AppController {
         else {
             try {
                 Double doseValue = Double.parseDouble(dose);
-                newMedication.setName(name);
-                newMedication.setDose(doseValue);
-                newMedication.setUnit(unit);
-                boolean found = false;
-                for (Medication med: medications) {
-                    if (newMedication.equals(med) &&
-                            !patient.getMedications().contains(newMedication)) {
-                        newMedication.setAllergies(med.getAllergies());
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found)
+                if (!medicationRepository.existsByNameAndDoseAndUnit(name, doseValue, unit))
+                    throw new Exception();
+                newMedication = medicationRepository.findByNameAndDoseAndUnit(name, doseValue, unit).get();
+                if (patient.getMedications().contains(newMedication))
                     throw new Exception();
             }
             catch (Exception exception) {
                 model.addAttribute("patient", patient);
                 model.addAttribute("medication", newMedication);
                 // List of possible medications
-                model.addAttribute("medications", medications);
                 Set<String> medicationsNames = new HashSet<>();
                 for (Medication medication: medications)
                     medicationsNames.add(medication.getName());
@@ -404,7 +386,6 @@ public class AppController {
                         model.addAttribute("patient", patient);
                         model.addAttribute("medication", newMedication);
                         // List of possible medications
-                        model.addAttribute("medications", medications);
                         Set<String> medicationsNames = new HashSet<>();
                         for (Medication medication : medications)
                             medicationsNames.add(medication.getName());

@@ -10,5 +10,6 @@ public interface MedicationRepository extends CrudRepository<Medication, Integer
     List<Medication> findAll();
     List<Medication> findAllByName(String name);
     Optional<Medication> findById(Integer id);
-
+    boolean existsByNameAndDoseAndUnit(String name, double dose, String unit);
+    Optional<Medication> findByNameAndDoseAndUnit(String name, double dose, String unit);
 }

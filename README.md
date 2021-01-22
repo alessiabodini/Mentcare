@@ -18,14 +18,16 @@ Gli utenti di tale sistema sono:
 
 Il sistema necessita dell'implementazione delle seguenti features:
 
-1. **gestione delle cure individuali**: i medici possono creare una cartella clinica per i pazienti, modificarne le informazioni, vedere la storia clinica del paziente ecc. 
+1. **gestione delle cure individuali**: i medici e gli infermieri possono creare una cartella clinica per i pazienti e modificarne le informazioni, i medici possono inoltre prescrivere e modificare farmaci e trattamenti. Inoltre i receptionists si occupano della registrazione dei pazienti nel sistema e della prenotazione dei consulti;
 2. **monitoraggio dei pazienti**: il sistema monitora i registri dei pazienti coinvolti nel trattamento e i genera degli avvisi se vengono rilevati eventuali problemi;
 3. **report amministrativo**: il sistema genera mensilmente dei report che mostrano il numero di pazienti trattati in ogni clinica, il numero di quelli che sono entrati/usciti dal sistema, il numero di quelli isolati, i farmici prescritti e il loro costo, ecc.
 
 La parte di sistema che si può vedere qui sviluppata riguarda la *gestione delle cure individuali* e si concentra sul lavoro svolto dalle seguenti figure: *dottori* (dell'ospedale o medici di base), *infermieri* e *receptionist*. Si considera in particolare che ogni infermiere e dottore dell'ospedale possano accedere a tutte le cartelle cliniche presenti, mentre i medici di base solo ai propri pazienti. In futuro sarebbe necessario provvedere a un sistema di autorizzazione in base al sistema ospedaliero di cui gli utenti fanno parte.
 
+Di seguito si presentano gli scenari sviluppati, implementanti in base ai requisiti esposti dagli stakeholder per il sistema.
+
 ## Scenari
-Gli scenari sviluppati sono i seguenti:
+Gli scenari sviluppati (in base ai requisiti richiesti) sono i seguenti:
 
 1. <ins>Visualizzazione della cartella clinica di un paziente</ins> (da parte dello staff medico).  
    Lo staff medico, una volta entrato nella propria homepage, ha la possibilità di scegliere un paziente da un menù a tendina. Cliccando poi invio o su "View medical record" viene reindirizzato alla cartella clinica del paziente. Tale cartella clinica presenta le informazioni personali del paziente, il proprio medico di base, allergie, sintomi e patologie diagnosticate, farmaci e trattamenti prescritti e ancora validi al momento corrente.
@@ -74,7 +76,7 @@ Tutti gli scenari presentati sottintendono una precedente **autenticazione** del
 
 ### Extra
 Il progetto, per facilitare il test del sistema, permette anche dalla homepage principale di entrare come un generico dottore ospedaliero, infermiere o receptionist e provare così il sistema.   
-All'interno di _AppController_ si può anche trovare il link a pagine usate per il controllo nel database corrente degli utenti ("/staff-list" e "/patients-list"), dei farmaci ("/medications-list") e dei trattamenti ("/treatments-list") presenti. Il database in questione viene caricato attraverso un apposita funzione al primo caricamento della homepage iniziale.
+All'interno di _AppController_ si può anche trovare il link a pagine usate per il controllo nel database corrente degli utenti ("/staff-list" e "/patients-list"), dei farmaci ("/medications-list"), dei trattamenti ("/treatments-list") e infine dei consulti ("/consultations-list") presenti. Il database in questione viene caricato attraverso un apposita funzione al primo caricamento della homepage iniziale.
 
 ## Design
 Di seguito si riportano i diagrammi sviluppati per la progettazione. 
@@ -99,3 +101,58 @@ Di seguito si riportano i diagrammi sviluppati per la progettazione.
 
 
 ## Qualità
+Il **test delle unità** garantisce una copertura del codice del 100% con IntellijCoverage e del 99% con JaCoCo focalizzandosi sul package _entity_.
+
+Per quanto riguarda _AppController_ (e anche _LoadDatabase_) si sono invece sviluppati 26 **test di accettazione**, tutti basati sui dati presenti inizialmente nel database. Si vanno a testare in particolare i seguenti scenari:
+
+1. Autenticazione di un dottore (ospedaliero) (con ID "DOC10000"). Tale ID verrà anche utilizzato per tutti i test riguardanti le mansioni di un medico. 
+
+2. Autenticazione <ins>non</ins> riuscita con un ID non valido ("NUR1000", non esistente nel database).
+
+3. Visualizzazione della cartella clinica di un paziente ("Alessandro Cremonini", con ID "PAT10008") da parte di un medico ospedaliero. Tale paziente verrà utilizzato per i seguenti test riguardanti le mansioni di dottori. 
+
+4. Modifica della cartella clinica di un paziente, con aggiunta di allergie ("Dust") e modifica della diagnosi. In particolare viene deseleziona la casella con "Mood disorder" e viene selezionata la casella "Anxiety disorder", a cui vengono associati nuovi sintomi ("Panic attacks").
+
+5. Eliminazione di un farmaco prescritto ("Prozac (20.0 mg)"). Come anche in altri casi, prima di una tale operazione, perché il test abbia sempre successo, ci si assicura che tale farmaco già sia stato prescritto.
+
+6. Modifica di un farmaco ("Prozac") in un nuovo dosaggio ("28 units").
+
+7. Modifica <ins>non</ins> riuscita di un farmaco in un dosaggio non presente nel database. 
+
+8. Prescrizione di un nuovo farmaco ("Xanax (0.5 mg)"), verificando che il farmaco non sia già stato prescritto prima con tale dosaggio.
+
+9. Prescrizione <ins>non</ins> riuscita di un nuovo farmaco a cui il paziente risulta allergico ("Xanax (1.0 mg)") (quando non viene spuntata l'opzione di <ins>non</ins> controllare eventuali allergie). 
+
+10. Prescrizione <ins>non</ins> riuscita di un farmaco non esistente nel database ("Xanax (5.0 mg)").
+
+11. Eliminazione di un trattamento precedentemente prescritto ("Meetings with doctor (Monthly)").
+
+12. Modifica di un trattamento precedentemente prescritto ("Meetings with doctor (Monthly)").
+
+13. Prescrizione di un nuovo trattamento ("Meetings with doctor (Monthly)"), verificando che non sia già stato prescritto (o in caso già cancellato).
+
+14. Prescrizione <ins>non</ins> di un trattamento già presente nella cartella clinica ("Meetings with doctor (Monthly)"). 
+
+15. Autenticazione di un infermiere (con ID "NUR10004"). Tale ID verrà anche utilizzato per i seguenti test riguardanti le mansioni di un infermiere. 
+
+16. Visualizzazione della cartella clinica di un paziente ("Ilaria Bonetti", con ID "PAT10009") da parte di un infermiere. Tale paziente verrà utilizzato anche per il prossimo test. 
+
+17. Modifica della cartella clinica di un paziente, con aggiunta di allergie ("Bees") e modifica della diagnosi. In particolare viene deseleziona la casella con "Eating disorder" e viene selezionata la casella "Mood disorder", a cui vengono associati nuovi sintomi ("Sadness").
+
+18. Autenticazione di un receptionist (con ID "REC10006"). Tale ID verrà anche utilizzato per i seguenti test riguardanti le mansioni di un receptionist. 
+
+19. Visualizzazione delle informazioni personali di un paziente ("Ilaria Bonetti", con ID "PAT10009") da parte di un infermiere. Tale paziente verrà utilizzato anche nei prossimi test. 
+
+20. Modifica delle informazioni personali di un paziente. In particolare si modifica il numero di telefono in "3526681536" e si sceglie un nuovo medico di base ("Stefano Scorsese").
+
+21. Modifica <ins>non</ins> riuscita delle informazioni personali di un paziente, quando la data viene modificata in un formato sbagliato ("1-02-1998").
+
+22. Registrazione <ins>non</ins> riuscita di un paziente ("Maria Rovere")  le cui informazioni personali sono già completamente riferite a un paziente esistente. 
+
+23. Eliminazione di un paziente ("PAT10010"), controllando che quest'ultimo sia già presente nel database. Per assicurarsi di ciò, chiama prima un metodo che verifica la registrazione di un nuovo paziente ("Maria Rovere", con ID "PAT10010"). 
+
+24. Eliminazione di un consulto ("2021-03-21 10:30 with Dr. Sole at Xperia"), prenotato precedentemente. Per assicurarsi della presenza di tale prenotazione, chiama a sua volta un altro metodo che testa la prenotazione di un nuovo consulto (proprio "2021-03-21 10:30 with Dr. Sole at Xperia"). 
+
+25. Prenotazione <ins>non</ins> riuscita di un nuovo consulto ("2021-03-21 10:30 with Dr. Sole at Xperia"), poiché già esistente tra gli appuntamenti del paziente.
+
+26. Prenotazione <ins>non</ins> riuscita di un nuovo consulto a causa della specifica della data in un formato errato ("21-03-2021"). 

@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class TreatmentTest {
     private Treatment treatment;
@@ -46,5 +47,10 @@ public class TreatmentTest {
     public void equalsTest() {
         Treatment treat = new Treatment("Meetings with psychologist", "Weekly");
         assertEquals(treatment, treat);
+
+        treat.setFrequency("Monthly");
+        assertNotEquals(treatment, treat);
+        treat.setDescription("Meetings");
+        assertNotEquals(treatment, treat);
     }
 }

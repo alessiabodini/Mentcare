@@ -14,7 +14,7 @@ public class LoadDatabase {
     // - Receptionists (2)
     // - Patients (2)
     @SuppressWarnings("OptionalGetWithoutIsPresent")
-    public static void importPeople(HospitalDoctorRepository hospitalDoctorRepository,
+    public LoadDatabase(HospitalDoctorRepository hospitalDoctorRepository,
                                     GeneralPractitionerRepository generalPractitionerRepository,
                                     NurseRepository nurseRepository,
                                     ReceptionistRepository receptionistRepository,

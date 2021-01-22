@@ -68,7 +68,7 @@
                 <td>
                     <div th:if="${patient.medications != null}" th:each="medication: ${patient.medications}">
                         <span th:text="${medication.toString()}" class="medications"></span>
-                        <a class="small" th:id="${'edit-med-' + medication.name}"
+                        <a class="small" th:id="${'edit-med-' + medication.name + '-' + medication.dose}"
                            th:if="${staff.id.startsWith('DOC')}"
                            th:href="@{/edit-medication(patient=${patient.id}, staff=${staff.id}, medication=${medication.id})}">
                             Change
