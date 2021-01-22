@@ -81,21 +81,21 @@ All'interno di _AppController_ si può anche trovare il link a pagine usate per 
 ## Design
 Di seguito si riportano i diagrammi sviluppati per la progettazione. 
 
-- Use case diagram:
+- **Use case diagram**:
   
 ![UseCaseDiagram](/uml/UseCaseDiagram.jpg)
 
-- Class diagrams:
+- **Class diagrams**:
 
 ![ClassDiagram](/uml/ClassDiagram.jpg)
 
 ![ClassDiagramMVC](/uml/ClassDiagramMVC.jpg)
 
-- Sequence diagram, rappresentante l'autenticazione nel sistema:
+- **Sequence diagram**, rappresentante l'autenticazione nel sistema:
 
 ![Authentication](/uml/Authentication.jpg)
 
-- Activity diagram, rappresentante la modifica della diagnosi di un paziente:
+- **Activity diagram**, rappresentante la modifica della diagnosi di un paziente:
 
 ![UpdateConditions](/uml/UpdateConditions.jpg)
 
