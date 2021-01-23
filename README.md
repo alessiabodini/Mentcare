@@ -99,7 +99,7 @@ Di seguito si riportano i diagrammi sviluppati per la progettazione.
 
 ![ClassDiagramMVC](/uml/ClassDiagramMVC.jpg)
 
-- **Sequence diagram**, rappresentante l'autenticazione nel sistema:
+- **Sequence diagrams**, rappresentanti rispettivamente l'autenticazione nel sistema e la registrazione di un nuovo paziente:
 
 ![Authentication](/uml/Authentication.jpg)
 
