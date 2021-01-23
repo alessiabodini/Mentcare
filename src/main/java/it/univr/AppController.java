@@ -616,6 +616,7 @@ public class AppController {
             model.addAttribute("patient", patient);
             return "personal-info";
         }
+        model.addAttribute("patients", patientRepository.findAll());
         return "receptionist-home";
     }
 
