@@ -47,29 +47,29 @@ Una volta cliccato su "Save and continue" si aprirà poi una nuova pagine che pe
     
 
 4. <ins>Prescrizione di un nuovo farmaco</ins>  
-   I dottori, una volta all'interno della cartella clinica del proprio paziente, possono prescrivere un nuovo farmaco cliccando sul pulsante "Prescribe new medication". A questo punto si aprirà una nuova pagina da cui sarà possibile per l'utente selezionare da un menù a tendina il nome del farmaco scelto, indicare la dose e selezionare l'unità di misura corrispondente. Una volta schiacciato su "Save" il sistema controlla che la dose per il farmaco inserita sia corretta, ovvero esiste nel database di farmaci ufficiale, e il farmaco scelto in tale dose non risulti già prescritto al paziente. Se i dati non sono corretti viene inviato un messaggio di errore che consiglia di compilare il form diversamente, in caso contrario invece il sistema procede con una verifica delle allergie. Avviene cioè un controllo tra i componenti del farmaco e le eventuali allergie del paziente: se il paziente risulta allergico a tale farmaco viene emesso un nuovo messaggio di errore. Tale controllo può essere altrimenti evitato selezionando una checkbox presente nel form che evita tale controllo e permette al medico di prescrivere il farmaco nonostante possibili effetti collaterali.  
+   I dottori, una volta all'interno della cartella clinica del proprio paziente, possono prescrivere un nuovo farmaco cliccando sul pulsante "Prescribe new medication". A questo punto si aprirà una nuova pagina da cui sarà possibile per l'utente selezionare da un menù a tendina il nome del farmaco scelto, indicare la dose e selezionare l'unità di misura corrispondente. Una volta schiacciato su "Save" il sistema controlla che la dose per il medicinale inserita sia corretta, ovvero che esista nel database di farmaci ufficiale, e che quello scelto in tale dose non risulti già prescritto al paziente. Se i dati non sono corretti viene inviato un messaggio di errore che consiglia di compilare il form diversamente, in caso contrario invece il sistema procede con una verifica delle allergie. Avviene cioè un controllo tra i componenti del farmaco e le eventuali allergie del paziente: se il paziente risulta allergico a tale medicinale viene emesso un nuovo messaggio di errore. Tale controllo può essere altrimenti evitato selezionando una checkbox presente nel form, permettendo così al medico di prescrivere il farmaco nonostante i possibili effetti collaterali.  
    Una futura modifica/cancellazione del farmaco può essere effettuata, come indicato sopra, direttamente dalla cartella clinica del paziente.  
    _Il database di farmaci al momento è solo una bozza; dovrebbe essere completato rispetto a una lista ufficiale di medicinali autorizzati dal sistema sanitario nazionale._
    
 
 5. <ins>Prescrizione di un nuovo trattamento</ins>  
-   Similmente allo scenario precedente, un medico può anche prescrivere un nuovo trattamento sempre a partire dalla cartella clinica di un paziente. Cliccando sul pulsante "Prescribe new treatment" si aprirà un pagina in cui è possibile inserire i due campi che identificano un trattamento: descrizione (da scrivere nell'apposito campo) e frequenza (selezionabile tra giornaliera, settimanale, mensile e annuale). _Le frequenze disponibili al momento sono solo un esempio e possono essere tranquillamente modificate in un futuro._ Una volta completato il form, il medico può inviare il tutto tramite il pulsante "Save" e il sistema a questo punto inserirà il trattamento solo nel caso in cui non ci siano campi vuoti e non sia già stato prescritto, con identiche caratteristiche, al paziente. In caso contrario verrà emesso un messaggio di errore che consiglierà di ricompilare il form con nuovi parametri. 
+   Similmente allo scenario precedente, un medico può anche prescrivere un nuovo trattamento sempre a partire dalla cartella clinica di un paziente. Cliccando sul pulsante "Prescribe new treatment" si aprirà una pagina in cui è possibile inserire i due campi che identificano un trattamento: descrizione (da scrivere nell'apposito campo) e frequenza (selezionabile tra giornaliera, settimanale, mensile e annuale). _Le frequenze disponibili al momento sono solo un esempio e possono essere tranquillamente modificate in un futuro._ Una volta completato il form, il medico può inviare il tutto tramite il pulsante "Save" e il sistema a questo punto inserirà il trattamento solo nel caso in cui non ci siano campi vuoti e non sia già stato prescritto, con identiche caratteristiche, al paziente. In caso contrario verrà emesso un messaggio di errore che consiglierà di ricompilare il form con nuovi parametri. 
 
 
 6. <ins>Visualizzazione delle informazioni personali di un paziente</ins>  
    Un receptionist, una volta autenticatosi nel sistema, ha la possibilità di selezionare un paziente (dall'intero sistema ospedaliero) e visualizzare le sue informazioni personali, oltre che i consulti a cui ha già preso appuntamento. 
-   
 
-7. <ins>Modifica delle informazioni personali di un paziente</ins>  
+
+7. <ins>Registrazione di un nuovo paziente</ins>  
+   Una volta entrato nella sua homepage, il receptionist può anche registrare un nuovo paziente cliccando su "Register a new patient". In questo caso la pagina che si apre è simile a quella di modifica, ma in questo caso tutti i campi sono inizialmente vuoti. Una volta completato il form e cliccato su "Save", il sistema esegue gli stessi controlli di prima e se i dati risultano corretti procede al salvataggio del paziente nel sistema.
+
+
+8. <ins>Modifica delle informazioni personali di un paziente</ins>  
    A partire dalla schermata presentata sopra, il receptionist può cliccare sul tasto "Edit" per modificare le informazioni riguardanti il paziente, a eccezione del suo ID. In particolare, risulta possibile modificare nome, cognome, data di nascita, numero di telefono, indirizzo e infine anche il medico di base (scelto tra quelli disponibili). Una volta compilato il form e cliccato su "Save", il sistema controlla che i dati inseriti non siano vuoti e che la data sia specificata nel formato corretto prima di salvarli nel database, altrimenti manda un messaggio di errore. Viene inoltre controllato se un altro paziente con gli stessi identici dati non sia già presente nel sistema, così da evitare doppioni. 
 
 
-8. <ins>Eliminazione di un paziente</ins> dal sistema.  
-Similmente a prima, a partire dalla homepage del receptionist, è possibile cliccare su "Edit" e in seguito su "Delete" per cancellare definitivamente il paziente dal sistema. 
-   
-
-9. <ins>Registrazione di un nuovo paziente</ins>  
-   Una volta entrato nella sua homepage, il receptionist può anche registrare un nuovo paziente cliccando su "Register a new patient". In questo caso la pagina che si apre è simile a quella di modifica, ma in questo caso tutti i campi sono inizialmente vuoti. Una volta completato il form e cliccato su "Save", il sistema esegue gli stessi controlli di prima e se i dati risultano corretti procede al salvataggio del paziente nel sistema. 
+9. <ins>Eliminazione di un paziente</ins> dal sistema.  
+Similmente a prima, a partire dalla homepage del receptionist, è possibile cliccare su "Edit" e in seguito su "Delete" per cancellare definitivamente il paziente dal sistema.
 
 
 10. <ins>Prenotazione di un consulto</ins>  
@@ -141,7 +141,7 @@ Per quanto riguarda _AppController_ (e anche _LoadDatabase_) si sono invece svil
 
 13. Prescrizione di un nuovo trattamento ("Meetings with doctor (Monthly)"), verificando che non sia già stato prescritto (o in caso già cancellato).
 
-14. Prescrizione <ins>non</ins> di un trattamento già presente nella cartella clinica ("Meetings with doctor (Monthly)"). 
+14. Prescrizione <ins>non</ins> riuscita di un trattamento già presente nella cartella clinica ("Meetings with doctor (Monthly)"). 
 
 15. Autenticazione di un infermiere (con ID "NUR10004"). Tale ID verrà anche utilizzato per i seguenti test riguardanti le mansioni di un infermiere. 
 
