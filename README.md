@@ -166,3 +166,6 @@ Per quanto riguarda _AppController_ (e anche _LoadDatabase_) si sono invece svil
 25. Prenotazione <ins>non</ins> riuscita di un nuovo consulto ("2021-03-21 10:30 with Dr. Sole at Xperia"), poiché già esistente tra gli appuntamenti del paziente.
 
 26. Prenotazione <ins>non</ins> riuscita di un nuovo consulto a causa della specifica della data in un formato errato ("21-03-2021"). 
+
+
+Per eseguire correttamente i test di accettazione precedenti bisogna estrarre i relativi file (_DoctorTest_, _NurseTest_ e _ReceptionistTest_) in un progetto a parte, inserendo nel _build.gradle_ le dipendenze necessarie per JWebUnit. 
