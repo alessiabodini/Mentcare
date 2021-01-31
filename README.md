@@ -87,7 +87,7 @@ Il progetto, per facilitare il test del sistema, permette anche dalla homepage p
 All'interno di _AppController_ si può anche trovare il link a pagine usate per il controllo nel database corrente degli utenti ("/staff-list" e "/patients-list"), dei farmaci ("/medications-list"), dei trattamenti ("/treatments-list") e infine dei consulti ("/consultations-list") presenti. Il database in questione viene caricato attraverso un apposita funzione al primo caricamento della homepage iniziale.
 
 ## Design
-Di seguito si riportano i diagrammi sviluppati per la progettazione. 
+Per lo sviluppo si è fatto uso del framework Java Spring. Di seguito si riportano i diagrammi sviluppati per la progettazione. 
 
 - **Use case diagram**:
   
